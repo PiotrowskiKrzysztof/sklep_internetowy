@@ -1,0 +1,21 @@
+@import "variables";
+
+@mixin button() {
+    button {
+        background: transparent;
+        color: $dark-grey;
+        border: 1px solid $dark-grey;
+        padding: 10px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: 900;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    button:hover {
+        background: $pink;
+        border: 1px solid $pink;
+        color: $white
+    }
+    
+}

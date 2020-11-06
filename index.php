@@ -1,0 +1,154 @@
+<?php
+  session_start();  
+?>
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sklep internetowy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Krzysztof Piotrowski" />
+    <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
+    <link rel="stylesheet" type="text/css" href="styles/style.css?v=<?php echo time();?>" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" /> 	
+  </head>
+  <body>
+    <header>
+      <div id="header__container">
+        <img class="logo" src="img/logo.svg" alt="Logo" />
+        <div class="account__menu">                     
+          <?php
+            if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
+              echo '
+              <div class="dropdown">
+                <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
+                <div class="dropdown__menu">
+                  <a href ="my_account.php">Moje konto</a>
+                  <a href ="#">Zamówienia</a>
+                  <a href ="logout.php">Wyloguj</a>
+                </div> 
+              </div>  ';
+            } else {
+              echo '<button><a href="register_page.php">Zarejestruj się</a></button>';
+              echo '<button><a href="signin_page.php">Zaloguj się</a></button>';
+            }
+          ?>
+        </div>
+      </div>
+    </header>
+    <nav>
+      <div id="nav-container">
+        <ul id="menu">
+          <li class="menu-element"><a href="index.php">Strona główna</a></li>
+          <li class="menu-element"><a href="/newsy">Psy</a></li>
+          <li class="menu-element"><a href="/artykuly">Koty</a></li>
+          <li class="menu-element"><a href="/opinie">Małe zwierzęta</a></li>
+        </ul>
+        <div id="menu-bot">
+          <div class="menu-bot-element">
+            <img src="img/trucksmall.svg" alt="trucksmall" />
+            <p>dostawa gratis od 99zł</p>
+          </div>
+          <div class="menu-bot-element">
+            <img src="img/return.svg" alt="trucksmall" />
+            <p>30 dni na zwrot towaru</p>
+          </div>
+          <div class="menu-bot-element">
+            <img src="img/pawsmall.svg" alt="trucksmall" />
+            <p>program lojalnościowy</p>
+          </div>
+          <div class="menu-bot-element">
+            <img src="img/moneysmall.svg" alt="trucksmall" />
+            <p>TERMIN PŁATNOŚCI DO 30 DNI</p>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <section>
+      <div id="section-container">
+        <div class="slider__container">
+          <button class="slider__button slider__button--prev" data-button-prev></button>
+          <figure class="slide" data-slide></figure>
+          <button class="slider__button slider__button--next" data-button-next></button>
+        </div>        
+        <div id="section-container">
+          <div id="section-container-content">
+            <div class="section-container-content-element">
+              <img class="section-container-content-element-img" src="img/truck.svg" alt="banner_dostawa" />
+              <div class="section-container-content-element-text">
+                <h2>darmowa dostawa</h2>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <button>Lorem Ipsum</button>
+              </div>
+            </div>
+            <div class="section-container-content-element">
+              <img class="section-container-content-element-img" src="img/money.svg" alt="banner_dostawa" />
+              <div class="section-container-content-element-text">
+                <h2>termin płatności</h2>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <button>lorem ipsum</button>
+              </div>
+            </div>
+            <div class="section-container-content-element">
+              <img class="section-container-content-element-img" src="img/paw.svg" alt="banner_dostawa" />
+              <div class="section-container-content-element-text">
+                <h2>program lojalnościowy</h2>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                <button>lorem ipsum</button>
+              </div>
+            </div> 
+          </div>          
+        </div>
+      </div>      
+    </section>
+    <footer>
+      <div id="footer-container">
+        <div id="footer-container-socialmedia">
+          <p>Znajdziesz nas na</p>
+          <img src="img/fbwhite.svg" alt="banner_dostawa" />
+          <img src="img/instawhite.svg" alt="banner_dostawa" />
+        </div>
+        <div id="footer-container-info">
+          <div class="footer-container-info-element">
+            <h3>informacje</h3>
+            <ul>
+              <li>O nas</li>
+              <li>Regulamin</li>
+              <li>Lorem Ipsum</li>
+              <li>Lorem Ipsum</li>
+            </ul>
+          </div>
+          <div class="footer-container-info-element">
+            <h3>Obsługa klienta</h3>
+            <ul>
+              <li>Zwroty</li>
+              <li>Reklamacje</li>
+              <li>Lorem Ipsum</li>
+              <li>Lorem Ipsum</li>
+            </ul>
+          </div>
+          <div class="footer-container-info-element">
+            <h3>moje konto</h3>
+            <ul>
+              <li>Ustawienia konta</li>
+              <li>Moje zamówienia</li>              
+              <li>Lorem Ipsum</li>
+              <li>Lorem Ipsum</li>
+            </ul>
+          </div>
+          <div class="footer-container-info-element">
+            <h3>kontakt</h3>
+            <ul>
+              <li>tel</li>
+              <li>email</li>
+              <li>adres</li>
+            </ul>
+          </div>
+
+        </div>        
+      </div>    
+    </footer>
+    </body>
+    <script src="./js/main.js"></script>
+    <script src="./js/dropdown.js"></script>
+</html>

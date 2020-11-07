@@ -40,9 +40,71 @@
       <div id="nav-container">
         <ul id="menu">
           <li class="menu-element"><a href="index.php">Strona główna</a></li>
-          <li class="menu-element"><a href="/newsy">Psy</a></li>
-          <li class="menu-element"><a href="/artykuly">Koty</a></li>
-          <li class="menu-element"><a href="/opinie">Małe zwierzęta</a></li>
+          <li class="menu-element">
+            <a href="#">Psy</a>
+            <div class="dropdown__menu">
+              <div class="dropdown__element">
+                <a class="element__title" href="#"> Karma dla psa </a>
+                <ul>
+                  <li><a href="#">Sucha karma dla psa</a></li>
+                  <li><a href="#">Mokra karma dla psa</a></li>
+                  <li><a href="#">Witaminy i sumplementy</a></li>
+                  <li><a href="#">Przysmaki</a></li>
+                </ul>
+              </div>
+              <div class="dropdown__element">
+                <a class="element__title" href="#"> Transport psa </a>
+                <ul>
+                  <li><a href="#">Transportery dla psów</a></li>
+                  <li><a href="#">Klatki i akcesoria</a></li>
+                  <li><a href="#">Miski i poidła podróżne</a></li>
+                  <li><a href="#">Akcesoria samochodowe</a></li>
+                </ul>
+              </div>
+              <div class="dropdown__element">
+                <a class="element__title" href="#"> Spacer z psem </a>
+                <ul>
+                  <li><a href="#">Obroże</a></li>
+                  <li><a href="#">Smycze</a></li>
+                  <li><a href="#">Szelki</a></li>
+                  <li><a href="#">Kagańce</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="menu-element">
+            <a href="#">Koty</a>
+            <div class="dropdown__menu">
+              <div class="dropdown__element">
+                <a class="element__title" href="#"> Karma dla kota </a>
+                <ul>
+                  <li><a href="#">Sucha karma dla kota</a></li>
+                  <li><a href="#">Mokra karma dla kota</a></li>
+                  <li><a href="#">Witaminy i sumplementy</a></li>
+                  <li><a href="#">Przysmaki</a></li>
+                </ul>
+              </div>
+              <div class="dropdown__element">
+                <a class="element__title" href="#"> Transport kota </a>
+                <ul>
+                  <li><a href="#">Transportery dla kotów</a></li>
+                  <li><a href="#">Środki uspokajające do podróży</a></li>
+                  <li><a href="#">Szelki i smycze dla kotów</a></li>
+                  <li><a href="#">Akcesoria samochodowe</a></li>
+                </ul>
+              </div>
+              <div class="dropdown__element">
+                <a class="element__title" href="#"> Zabawa i sport </a>
+                <ul>
+                  <li><a href="#">Kocimiętka</a></li>
+                  <li><a href="#">Grzechotki i maskotki</a></li>
+                  <li><a href="#">Wskaźniki laserowe</a></li>
+                  <li><a href="#">Tunele</a></li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="menu-element"><a href="#">Promocje</a></li>
         </ul>
         <div id="menu-bot">
           <div class="menu-bot-element">

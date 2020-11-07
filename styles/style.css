@@ -154,7 +154,6 @@ nav #nav-container {
 
 nav #nav-container #menu {
   background: #31312f;
-  padding: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -168,6 +167,7 @@ nav #nav-container #menu {
 }
 
 nav #nav-container #menu .menu-element {
+  padding: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -183,6 +183,60 @@ nav #nav-container #menu .menu-element a {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+nav #nav-container #menu .menu-element .dropdown__menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  text-align: left;
+  position: absolute;
+  background: #31312f;
+  top: 150px;
+  width: auto;
+  height: auto;
+  z-index: 1;
+}
+
+nav #nav-container #menu .menu-element .dropdown__menu .dropdown__element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px;
+}
+
+nav #nav-container #menu .menu-element .dropdown__menu .dropdown__element .element__title {
+  margin-bottom: 5px;
+}
+
+nav #nav-container #menu .menu-element .dropdown__menu .dropdown__element ul {
+  list-style-type: none;
+}
+
+nav #nav-container #menu .menu-element .dropdown__menu .dropdown__element ul li {
+  text-transform: capitalize !important;
+  padding: 5px 5px 5px 10px;
+  font-size: 12px;
+}
+
+nav #nav-container #menu .menu-element .dropdown__menu .dropdown__element ul li a {
+  text-transform: capitalize;
+}
+
+nav #nav-container #menu .menu-element:hover .dropdown__menu {
+  visibility: visible;
+  opacity: 1;
+}
+
+nav #nav-container #menu .menu-element:hover .dropdown__menu:hover {
+  visibility: visible;
+  opacity: 1;
 }
 
 nav #menu-bot {

@@ -91,13 +91,13 @@ nav {
         width: 100vw;
         #menu {
             background: $dark-grey;
-            padding: 20px;
             display: flex;
             list-style-type: none;
             justify-content: center;
             flex-wrap: wrap;
             margin: 0;
             .menu-element {
+                padding: 20px;
                 display: flex;
                 flex: 1;
                 justify-content: space-around;
@@ -107,8 +107,49 @@ nav {
                     text-transform: uppercase;
                     font-weight: 700;
                 }
+                .dropdown__menu {
+                    display: flex;
+                    visibility: hidden;
+                    opacity: 0;
+                    text-align: left;
+                    position: absolute;
+                    background: $dark-grey;
+                    top: 150px;
+                    width: auto;  
+                    height: auto;
+                    z-index: 1;                  
+                    .dropdown__element {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 20px;
+                        .element__title {
+                            margin-bottom: 5px;
+                        }
+                        ul {
+                            list-style-type:none;
+                            li {
+                                text-transform: capitalize !important;
+                                padding: 5px 5px 5px 10px;
+                                font-size: 12px;
+                                a {
+                                    text-transform: capitalize;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-    }
+            .menu-element:hover {
+                .dropdown__menu {
+                    visibility: visible;
+                    opacity: 1;
+                }
+                .dropdown__menu:hover {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+        }
     }
     #menu-bot {
         display:flex;

@@ -23,9 +23,9 @@
                     <img class="logo" src="img/logo.svg" alt="Logo" />
                     <h2>Zaloguj się</h2>
                     <label for="email">E-mail:</label>
-                    <input type="email" name="email" placeholder="email"><br><br>
+                    <input id="email" type="email" name="email" placeholder="email"><br><br>
                     <label for="password">Hasło:</label>
-                    <input type="password" name="password"><br><br>
+                    <input id="password" type="password" name="password"><br><br>
                     <input type="submit" value="Zaloguj się">
                     <a href="/register_page.php">Zarejestruj się</a>
                 </form>

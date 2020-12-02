@@ -5,7 +5,7 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <title>Sklep internetowy</title>
+    <title>Sklep</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Krzysztof Piotrowski" />
     <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
@@ -16,7 +16,7 @@
     <header>
       <div id="header__container">
         <a href="index.php"><img class="logo" src="img/logo.svg" alt="Logo" /></a>
-        <div class="account__menu">                     
+        <div class="account__menu">                                         
           <?php
             if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
               echo '
@@ -130,43 +130,53 @@
         </div>
       </div>
     </nav>
-    <section>
-      <div id="section-container">
-        <div class="slider__container">
-          <button class="slider__button slider__button--prev" data-button-prev></button>
-          <figure class="slide" data-slide></figure>
-          <button class="slider__button slider__button--next" data-button-next></button>
-        </div>        
-        <div class="section-container">
-          <div id="section-container-content">
-            <div class="section-container-content-element">
-              <img class="section-container-content-element-img" src="img/truck.svg" alt="banner_dostawa" />
-              <div class="section-container-content-element-text">
-                <h2>darmowa dostawa</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <button>Lorem Ipsum</button>
-              </div>
+    <main>       
+      <div class="main__container">       
+        <aside>
+          <h3>PSY</h3>
+          <a href="#">Karma dla psa</a>
+          <a href="#">Transport z psem</a>
+          <a href="#">Spacer z psem</a>
+          <h3>KOTY</h3>
+          <a href="#">Karma dla kota</a>
+          <a href="#">Transport kota</a>
+          <a href="#">Zabawa i sport</a>
+          <h3>PROMOCJE</h3>
+        </aside>
+        <section class="section__shop">
+
+          <div class="shop__options">
+            <div class="shop__path">
+              <p>KOTY -> Karma dla kota</p>
             </div>
-            <div class="section-container-content-element">
-              <img class="section-container-content-element-img" src="img/money.svg" alt="banner_dostawa" />
-              <div class="section-container-content-element-text">
-                <h2>termin płatności</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <button>lorem ipsum</button>
-              </div>
+
+          </div>
+          <div class="shop__products">
+            
+            <div class="shop__item">
+              <img src="img/img_item.jpg" alt="img_item">
+              <h3>Lorem Ipsum</h3>
+              <p>cena:</p>
             </div>
-            <div class="section-container-content-element">
-              <img class="section-container-content-element-img" src="img/paw.svg" alt="banner_dostawa" />
-              <div class="section-container-content-element-text">
-                <h2>program lojalnościowy</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <button>lorem ipsum</button>
-              </div>
-            </div> 
-          </div>          
-        </div>
-      </div>      
-    </section>
+            <div class="shop__item">
+              <img src="img/img_item.jpg" alt="img_item">
+              <h3>Lorem Ipsum</h3>
+              <p>cena:</p>
+            </div>
+            <div class="shop__item">
+              <img src="img/img_item.jpg" alt="img_item">
+              <h3>Lorem Ipsum</h3>
+              <p>cena:</p>
+            </div>
+            <div class="shop__item">
+              <img src="img/img_item.jpg" alt="img_item">
+              <h3>Lorem Ipsum</h3>
+              <p>cena:</p>
+            </div>
+          </div> 
+        </section>
+      </div>
+    </main>
     <footer>
       <div id="footer-container">
         <div id="footer-container-socialmedia">

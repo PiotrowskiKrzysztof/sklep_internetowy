@@ -98,7 +98,7 @@
                     <h2>Rejestracja</h2>
 
                     <label for="email">E-mail:</label>
-                    <input type="email" name="email" placeholder="email"><br><br>
+                    <input id="email" type="email" name="email" placeholder="email"><br><br>
                     <?php
                         if(isset($_SESSION['e_email'])) {
                             echo '<span style="color:red">'.$_SESSION['e_email'].'</span><br>';
@@ -106,10 +106,10 @@
                         }
                     ?>
 
-                    <label for="password">Hasło:</label>
-                    <input type="password" name="password1"><br><br>
-                    <label for="password">Powtórz hasło:</label>
-                    <input type="password" name="password2"><br><br>
+                    <label for="password1">Hasło:</label>
+                    <input id="password1" type="password" name="password1"><br><br>
+                    <label for="password2">Powtórz hasło:</label>
+                    <input id="password2" type="password" name="password2"><br><br>
                     <?php
                         if(isset($_SESSION['e_password'])) {
                             echo '<span style="color:red">'.$_SESSION['e_password'].'</span><br>';

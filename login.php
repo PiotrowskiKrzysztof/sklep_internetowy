@@ -32,7 +32,7 @@
                     $_SESSION['email'] = $row['user_email']; //przechowuje email usera                
                     unset($_SESSION['login_error']); //usuwa zmienną nieprawidłowego logowania
                     $result->free_result();
-                    header('Location: index.php');
+                    header('Location: shop.php');
                 } else {
                     $_SESSION['login_error'] = '<span style="color:red">Nieprawidłowe hasło!</span>';
                     unset($_SESSION['login_error']);

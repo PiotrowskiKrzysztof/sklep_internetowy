@@ -27,8 +27,7 @@
                 <div class="dropdown">
                     <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
                     <div class="dropdown__menu">
-                        <a href ="my_account.php">Moje konto</a>
-                        <a href ="#">Zamówienia</a>
+                        <a href ="my_orders.php">Zamówienia</a>
                         <a href ="logout.php">Wyloguj</a>
                     </div> 
                 </div>  ';

@@ -27,7 +27,7 @@
                 <div class="dropdown">
                     <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
                     <div class="dropdown__menu">
-                        <a href ="my_orders.php">Zamówienia</a>
+                        <a href ="mu_orders.php">Zamówienia</a>
                         <a href ="logout.php">Wyloguj</a>
                     </div> 
                 </div>  ';
@@ -130,38 +130,15 @@
       </div>
     </nav>
     <section>
-      <div id="section-container">
-        <div class="slider__container">
-          <button class="slider__button slider__button--prev" data-button-prev></button>
-          <figure class="slide" data-slide></figure>
-          <button class="slider__button slider__button--next" data-button-next></button>
-        </div>        
-          <div id="section-container-content">
-            <div class="section-container-content-element">
-              <img class="section-container-content-element-img" src="img/truck.svg" alt="banner_dostawa" />
-              <div class="section-container-content-element-text">
-                <h2>darmowa dostawa</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <button>Lorem Ipsum</button>
-              </div>
+      <div class="section__container__ordered">
+        <h1>Moje zamówienia:</h1>
+        <div class="ordered__item">
+            <img src="img/img_item.jpg" alt="item.jpg">
+            <div class="item__content">
+                <h2>Nazwa produktu</h2>
+                <p>Cena produktu</p>
             </div>
-            <div class="section-container-content-element">
-              <img class="section-container-content-element-img" src="img/money.svg" alt="banner_dostawa" />
-              <div class="section-container-content-element-text">
-                <h2>termin płatności</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <button>lorem ipsum</button>
-              </div>
-            </div>
-            <div class="section-container-content-element">
-              <img class="section-container-content-element-img" src="img/paw.svg" alt="banner_dostawa" />
-              <div class="section-container-content-element-text">
-                <h2>program lojalnościowy</h2>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                <button>lorem ipsum</button>
-              </div>
-            </div> 
-          </div>          
+        </div>
       </div>      
     </section>
     <footer>

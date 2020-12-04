@@ -44,9 +44,15 @@
                 <li><a href="#">PSY</a></li>
                 <li><a href="#">KOTY</a></li>
                 <li><a href="#">PROMOCJE</a></li>
-                <li class="line"></li>
-                <li><a href="my_orders.php">ZAMÓWIENIA</a></li>
-                <li><a href="logout.php">WYLOGUJ</a></li>
+                <?php
+                  if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
+                    echo '
+                    <li class="line"></li>
+                    <li><a href="my_orders.php">ZAMÓWIENIA</a></li>
+                    <li><a href="logout.php">WYLOGUJ</a></li>
+                    ';
+                  }
+                ?>                
               </ul>
             </div>
           </nav>

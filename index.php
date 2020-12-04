@@ -36,6 +36,20 @@
               echo '<a class="btn_log" href="signin_page.php">Zaloguj się</a>';
             }
           ?>
+          <nav class="site-nav">
+            <button class="site-nav-trigger">Menu</button>
+            <div class="site-menu">
+              <ul>
+                <li><a href="#">STRONA GŁÓWNA</a></li>
+                <li><a href="#">PSY</a></li>
+                <li><a href="#">KOTY</a></li>
+                <li><a href="#">PROMOCJE</a></li>
+                <li class="line"></li>
+                <li><a href="my_orders.php">ZAMÓWIENIA</a></li>
+                <li><a href="logout.php">WYLOGUJ</a></li>
+              </ul>
+            </div>
+          </nav>
         </div>
       </div>
     </header>

@@ -1,17 +1,17 @@
 <?php
   session_start();  
+  require_once('mainClass.php');
+  require_once('shopClass.php');
+  require_once('settings.php');
+
+  $s = new shop();
+  $s -> SQLConnect($sqlConfig);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Sklep internetowy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Krzysztof Piotrowski" />
-    <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
-    <link rel="stylesheet" type="text/css" href="styles/style.css?v=<?php echo time();?>" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" /> 	
-  </head>
+  <?php
+    $s->printHtmlHeader();
+  ?>
   <body>
     <header>
       <div id="header__container">
@@ -44,12 +44,18 @@
                 <li><a href="#">PSY</a></li>
                 <li><a href="#">KOTY</a></li>
                 <li><a href="#">PROMOCJE</a></li>
+                <li class="line"></li>
                 <?php
                   if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
                     echo '
                     <li class="line"></li>
                     <li><a href="my_orders.php">ZAMÓWIENIA</a></li>
                     <li><a href="logout.php">WYLOGUJ</a></li>
+                    ';
+                  }  else {
+                    echo '
+                    <li><a href="register_page.php">ZAREJESTRUJ SIĘ</a></li>
+                    <li><a href="signin_page.php">ZALOGUJ SIĘ</a></li>
                     ';
                   }
                 ?>                

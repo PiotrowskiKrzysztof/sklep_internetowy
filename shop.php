@@ -156,48 +156,20 @@
     </nav>
     <main>       
       <div class="main__container">       
-        
       <?php
-              $s->printMenuLeft();
-       ?>  
-<!--
-        <aside>
-                
-
-          <h3>PSY</h3>
-          <a href="#">Karma dla psa</a>
-          <a href="#">Transport z psem</a>
-          <a href="#">Spacer z psem</a>
-          <h3>KOTY</h3>
-          <a href="#">Karma dla kota</a>
-          <a href="#">Transport kota</a>
-          <a href="#">Zabawa i sport</a>
-          <h3>PROMOCJE</h3>
-        </aside>
--->
+        $s->printMenuLeft();
+      ?>  
         <section class="section__shop">
-
-                 
-
           <div class="shop__options">
-            <div class="shop__path">
-              <p>KOTY -> Karma dla kota</p>
-            </div>
-
-          </div>
-          
-          <?php
-                  
-                  $s->debug($_REQUEST);
-
-                  $s->showProducts(); 
-
+            <?php
+              $s->showPathProducts();
+            ?>
+          </div>         
+          <?php    
+            // $s->debug($_REQUEST);
+            $s->showProducts(); 
           ?>
-
-          
         </section>
-
-
       </div>
     </main>
     <footer>

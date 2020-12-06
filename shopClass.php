@@ -116,15 +116,15 @@ function showProducts(){
             1=1   
     ";
 
-    if($level1 > 0){
+    if($level1 > 0) {
         $sql .= " AND  C.`id_category` = ".$level1." ";
     }
 
-    if($level2 > 0){
+    if($level2 > 0) {
         $sql .= " AND  MC.`id_main_category` = ".$level2." ";
     }
 
-    if($level3 > 0){
+    if($level3 > 0) {
         $sql .= " AND  SC.`id_second_category` = ".$level3." ";
     }
 
@@ -146,13 +146,63 @@ function showProducts(){
 
     function showOneTile($info){
         ?>
-        <div class="shop__item">
+        <div onclick="window.open('item.php?product_id=<?php echo $info['id_product'] ?>','mywindow')" class="shop__item">
                     <img src=<?php echo $info['img_product'] ?> alt="img_item">
                     <h3><?php echo $info['name_product'] ?></h3>
                     <p><?php echo $info['price_product']." zł" ?></p>
                     </div>
         <?php
     }
+
+    function showSelectedProduct() {
+
+        $product_id= $_REQUEST['product_id'];
+
+        $sql = "
+        SELECT 
+            P.`id_product`, 
+            P.`name_product`, 
+            P.`category_product` as `level3`, 
+            P.`img_product`, 
+            P.`price_product`,
+            P.`desc_product`,
+            P.`sellout_product`,
+            P.`count_product`, 
+
+            MC.`id_main_category` as `level2`,
+            MC.`name_main_category`,
+            C.`id_category` as `level1`,
+            C.`name_Category`,
+            SC.`name_second_category`         
+
+        FROM `product` P
+        JOIN `second_category` SC ON SC.id_second_category = P.`category_product`
+        JOIN `main_category` MC ON MC.`id_main_category` = SC.`id_main_category`
+        JOIN `category` C ON MC.`id_category` = C.`id_category`
+        
+        WHERE
+            P.`id_product` = $product_id;   
+        ";
+
+        $res = $this->sql($sql);
+        $row = mysqli_fetch_assoc($res);
+
+        $patchProduct = $row['name_Category']." -> ".$row['name_main_category']." -> ".$row['name_second_category']." -> ".$row['name_product'];
+
+        ?>
+        <p><?php echo $patchProduct ?></p>
+        <div class="products__item">
+            <img src=<?php echo $row['img_product'] ?> alt="item">
+            <div class="item__content">
+                <h1><?php echo $row['name_product'] ?></h1>
+                <p><?php echo $row['desc_product'] ?></p>
+                <h3><?php echo $row['price_product']." zł" ?></h3>
+                <button>Dodaj do koszyka</button>
+            </div>
+        </div>
+        <?php
+    }
+
     
     function showPathProducts() {
 
@@ -178,24 +228,21 @@ function showProducts(){
             WHERE 1=1
          ";
 
-        if($level1 > 0){
+        if($level1 > 0) {
             $sql .= " AND  C.`id_category` = ".$level1." ";
         }
     
-        if($level2 > 0){
+        if($level2 > 0) {
             $sql .= " AND  MC.`id_main_category` = ".$level2." ";
         }
     
-        if($level3 > 0){
+        if($level3 > 0) {
             $sql .= " AND  SC.`id_second_category` = ".$level3." ";
         }
-
         $sql .= "LIMIT 1"; // ograniczenie wyniku zapytania do jednego wyniku
-        $res = $this->sql($sql);
-        // $this->debug($sql);
 
+        $res = $this->sql($sql);
         $row = mysqli_fetch_assoc($res);
-        // $this->debug($row);
 
         $path= '';
         if($level1 > 0) {

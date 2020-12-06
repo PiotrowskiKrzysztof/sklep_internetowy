@@ -155,9 +155,11 @@
       </div>
     </nav>
     <section>
-        <div class="section__container__products">
-            <p>KOTY -> Mokra karma dla kotów -> to jest ta karma</p>
-            <div class="products__item">
+        <div class="section__container__products">            
+            <?php
+              $s -> showSelectedProduct();
+            ?>
+            <!-- <div class="products__item">
                 <img src="img/img_item.jpg" alt="item">
                 <div class="item__content">
                     <h1>Nazwa produktu</h1>
@@ -165,7 +167,7 @@
                     <h3>Cena</h3>
                     <button>Dodaj do koszyka</button>
                 </div>
-            </div>
+            </div> -->
             <h1>Polecane produkty:</h1>
             <div class="products__recommended">
                 <div class="recommended__item">

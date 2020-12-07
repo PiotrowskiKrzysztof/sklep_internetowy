@@ -12,6 +12,8 @@ class shop extends main{
         <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
         <link rel="stylesheet" type="text/css" href="styles/style.css?v=<?php echo time();?>" />
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" /> 	
+          <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>   
+          <script type="text/javascript" src="js/functions.js?v=<?php echo time();?>"></script>        
     </head>
     <?php
 
@@ -28,7 +30,8 @@ class shop extends main{
                         echo '
                             <div class="menu__trolley">
                                 <a href="my_trolley.php"><img src="img/trolley.svg" alt="Trolley" /></a>
-                                <p>Mój koszyk: '.$_SESSION['trolley_price'].' zł</p>  
+                                <p>Mój koszyk: </p> 
+                                <div id="basketInfo">'.$_SESSION['trolley_price'].' zł</div>
                             </div>
                             <div class="dropdown">
                                 <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
@@ -226,7 +229,7 @@ function printMenuLeft(){
 
             MC.`id_main_category` as `main_id`,
             MC.`name_main_category` as `main_name`,
-            
+
             SC.`id_second_category` as `sec_id`,
             SC.`name_second_category` as `sec_name`
         
@@ -397,17 +400,20 @@ function showProducts(){
                 <h1><?php echo $row['name_product'] ?></h1>
                 <p><?php echo $row['desc_product'] ?></p>
                 <h3><?php echo $row['price_product']." zł" ?></h3>
-                <form action="shopClass.php">
-                    <button oncClick="" >Dodaj do koszyka</button>
-                </form>                
+                
+                <button onclick="addToBasket(<?php echo $row['id_product']?>,<?php echo $row['price_product']?>)" >Dodaj do koszyka</button>
+                
             </div>
         </div>
         <?php
     }
 
-    function addToTrolley($price) {
+    function addToTrolley($id,$price) {
         $_SESSION['trolley_price'] += $price;
-        $_SESSION['trolley_products'];
+        $_SESSION['trolley_products'][] = array(
+                'id'=>$id,
+                'price'=>$price,
+        ) ;
     }
 
     

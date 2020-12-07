@@ -14,11 +14,11 @@
   ?>
   <body>
     <?php
-      $s->printNav();
+        $s->printNav();
     ?>
     <section>
       <div class="section__container__ordered">
-        <h1>Moje zamówienia:</h1>
+        <h1>Mój koszyk:</h1>
         <div class="ordered__item">
             <img src="img/img_item.jpg" alt="item.jpg">
             <div class="item__content">

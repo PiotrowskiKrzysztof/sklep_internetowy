@@ -29,7 +29,9 @@
                 if(password_verify($password, $row['user_password'])) {
                     $_SESSION['user_logged'] = true; //true tylko wtedy gdy jesteś zalogowany                
                     $_SESSION['id'] = $row['user_id']; //przechowuje id usera
-                    $_SESSION['email'] = $row['user_email']; //przechowuje email usera                
+                    $_SESSION['email'] = $row['user_email']; //przechowuje email usera
+                    $_SESSION['trolley_price'] = 0.00;  // przechowuje wartość koszyka
+                    $Session['trolley_products'] = array();
                     unset($_SESSION['login_error']); //usuwa zmienną nieprawidłowego logowania
                     $result->free_result();
                     header('Location: shop.php');

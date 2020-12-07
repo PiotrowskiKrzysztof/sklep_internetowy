@@ -2,20 +2,220 @@
 
 class shop extends main{
 
-function printHtmlHeader(){
-?>
-<head>
-    <meta charset="UTF-8" />
-    <title><?php echo ($this->shopName)?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Krzysztof Piotrowski" />
-    <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
-    <link rel="stylesheet" type="text/css" href="styles/style.css?v=<?php echo time();?>" />
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" /> 	
-  </head>
-<?php
+    function printHtmlHeader(){
+    ?>
+    <head>
+        <meta charset="UTF-8" />
+        <title><?php echo ($this->shopName)?></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Krzysztof Piotrowski" />
+        <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
+        <link rel="stylesheet" type="text/css" href="styles/style.css?v=<?php echo time();?>" />
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" /> 	
+    </head>
+    <?php
 
-}
+    }
+
+    function printNav() {
+    ?>
+        <header>
+            <div id="header__container">
+                <a href="index.php"><img class="logo" src="img/logo.svg" alt="Logo" /></a>
+                <div class="account__menu">                     
+                    <?php
+                        if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
+                        echo '
+                            <div class="menu__trolley">
+                                <a href="my_trolley.php"><img src="img/trolley.svg" alt="Trolley" /></a>
+                                <p>Mój koszyk: '.$_SESSION['trolley_price'].' zł</p>  
+                            </div>
+                            <div class="dropdown">
+                                <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
+                                <div class="dropdown__menu">
+                                    <a href ="my_orders.php">Zamówienia</a>
+                                    <a href ="logout.php">Wyloguj</a>
+                                </div> 
+                            </div>  ';
+                        } else {
+                        echo '<a class="btn_log" href="register_page.php">Zarejestruj się</a>';
+                        echo '<a class="btn_log" href="signin_page.php">Zaloguj się</a>';
+                        }
+                    ?>
+                    <nav class="site-nav">
+                        <button class="site-nav-trigger">Menu</button>
+                        <div class="site-menu">
+                        <ul>
+                            <li><a href="index.php">STRONA GŁÓWNA</a></li>
+                            <li><a href="shop.php?level1=2">KOTY</a></li>
+                            <li><a href="shop.php?level1=1">PSY</a></li>                            
+                            <li><a href="shop.php?level1=3">PROMOCJE</a></li>
+                            <?php
+                            if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
+                                echo '
+                                <li class="line"></li>
+                                <li><a href="my_orders.php">ZAMÓWIENIA</a></li>
+                                <li><a href="logout.php">WYLOGUJ</a></li>
+                                ';
+                            }  else {
+                                echo '
+                                <li><a href="register_page.php">ZAREJESTRUJ SIĘ</a></li>
+                                <li><a href="signin_page.php">ZALOGUJ SIĘ</a></li>
+                                ';
+                            }
+                            ?>                
+                        </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <nav>
+            <div id="nav-container">
+                <ul id="menu">
+                <li class="menu-element"><a href="index.php">Strona główna</a></li>
+                <li class="menu-element">
+                    <a href="shop.php?level1=2">Koty</a>
+                    <div class="dropdown__menu">
+                    <div class="dropdown__element">
+                        <a class="element__title" href="shop.php?level1=2&level2=1"> Karma dla kota </a>
+                        <ul>
+                        <li><a href="shop.php?level1=2&level2=1&level3=1">Sucha karma dla kota</a></li>
+                        <li><a href="shop.php?level1=2&level2=1&level3=2">Mokra karma dla kota</a></li>
+                        <li><a href="shop.php?level1=2&level2=1&level3=3">Witaminy i sumplementy</a></li>
+                        <li><a href="shop.php?level1=2&level2=1&level3=4">Przysmaki</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__element">
+                        <a class="element__title" href="shop.php?level1=2&level2=3"> Transport kota </a>
+                        <ul>
+                        <li><a href="shop.php?level1=2&level2=3&level3=5">Transportery dla kotów</a></li>
+                        <li><a href="shop.php?level1=2&level2=3&level3=6">Środki uspokajające do podróży</a></li>
+                        <li><a href="shop.php?level1=2&level2=3&level3=7">Szelki i smycze dla kotów</a></li>
+                        <li><a href="shop.php?level1=2&level2=3&level3=8">Akcesoria samochodowe</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__element">
+                        <a class="element__title" href="shop.php?level1=2&level2=4"> Zabawa i sport </a>
+                        <ul>
+                        <li><a href="shop.php?level1=2&level2=4&level3=9">Kocimiętka</a></li>
+                        <li><a href="shop.php?level1=2&level2=4&level3=10">Grzechotki i maskotki</a></li>
+                        <li><a href="shop.php?level1=2&level2=4&level3=11">Wskaźniki laserowe</a></li>
+                        <li><a href="shop.php?level1=2&level2=4&level3=12">Tunele</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                </li>
+                <li class="menu-element">
+                    <a href="shop.php?level1=1">Psy</a>
+                    <div class="dropdown__menu">
+                    <div class="dropdown__element">
+                        <a class="element__title" href="shop.php?level1=1&level2=5"> Karma dla psa </a>
+                        <ul>
+                        <li><a href="shop.php?level1=1&level2=5&level3=13">Sucha karma dla psa</a></li>
+                        <li><a href="shop.php?level1=1&level2=5&level3=14">Mokra karma dla psa</a></li>
+                        <li><a href="shop.php?level1=1&level2=5&level3=15">Witaminy i sumplementy</a></li>
+                        <li><a href="shop.php?level1=1&level2=5&level3=16">Przysmaki</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__element">
+                        <a class="element__title" href="shop.php?level1=1&level2=6"> Transport psa </a>
+                        <ul>
+                        <li><a href="shop.php?level1=1&level2=6&level3=17">Transportery dla psów</a></li>
+                        <li><a href="shop.php?level1=1&level2=6&level3=18">Klatki i akcesoria</a></li>
+                        <li><a href="shop.php?level1=1&level2=6&level3=19">Miski i poidła podróżne</a></li>
+                        <li><a href="shop.php?level1=1&level2=6&level3=20">Akcesoria samochodowe</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown__element">
+                        <a class="element__title" href="shop.php?level1=1&level2=7"> Spacer z psem </a>
+                        <ul>
+                        <li><a href="shop.php?level1=1&level2=7&level3=21">Obroże</a></li>
+                        <li><a href="shop.php?level1=1&level2=8&level3=22">Smycze</a></li>
+                        <li><a href="shop.php?level1=1&level2=9&level3=23">Szelki</a></li>
+                        <li><a href="shop.php?level1=1&level2=10&level3=24">Kagańce</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                </li>                
+                <li class="menu-element"><a href="shop.php?level1=3">Promocje</a></li>
+                </ul>
+                <div id="menu-bot">
+                <div class="menu-bot-element">
+                    <img src="img/trucksmall.svg" alt="trucksmall" />
+                    <p>dostawa gratis od 99zł</p>
+                </div>
+                <div class="menu-bot-element">
+                    <img src="img/return.svg" alt="trucksmall" />
+                    <p>30 dni na zwrot towaru</p>
+                </div>
+                <div class="menu-bot-element">
+                    <img src="img/pawsmall.svg" alt="trucksmall" />
+                    <p>program lojalnościowy</p>
+                </div>
+                <div class="menu-bot-element">
+                    <img src="img/moneysmall.svg" alt="trucksmall" />
+                    <p>TERMIN PŁATNOŚCI DO 30 DNI</p>
+                </div>
+                </div>
+            </div>
+        </nav>
+    <?php    
+    }
+
+    function printFooter() {
+    ?>
+    <footer>
+      <div id="footer-container">
+        <div id="footer-container-socialmedia">
+          <p>Znajdziesz nas na</p>
+          <img src="img/fbwhite.svg" alt="banner_dostawa" />
+          <img src="img/instawhite.svg" alt="banner_dostawa" />
+        </div>
+        <div id="footer-container-info">
+          <div class="footer-container-info-element">
+            <h3>informacje</h3>
+            <ul>
+              <li>O nas</li>
+              <li>Regulamin</li>
+              <li>Lorem Ipsum</li>
+              <li>Lorem Ipsum</li>
+            </ul>
+          </div>
+          <div class="footer-container-info-element">
+            <h3>Obsługa klienta</h3>
+            <ul>
+              <li>Zwroty</li>
+              <li>Reklamacje</li>
+              <li>Lorem Ipsum</li>
+              <li>Lorem Ipsum</li>
+            </ul>
+          </div>
+          <div class="footer-container-info-element">
+            <h3>moje konto</h3>
+            <ul>
+              <li>Ustawienia konta</li>
+              <li>Moje zamówienia</li>              
+              <li>Lorem Ipsum</li>
+              <li>Lorem Ipsum</li>
+            </ul>
+          </div>
+          <div class="footer-container-info-element">
+            <h3>kontakt</h3>
+            <ul>
+              <li>tel</li>
+              <li>email</li>
+              <li>adres</li>
+            </ul>
+          </div>
+
+        </div>        
+      </div>    
+    </footer>
+    <?php
+    }
+    
+
 
 function printMenuLeft(){
 
@@ -71,10 +271,10 @@ function printMenuLeft(){
        
         ?><h3><a href="shop.php?level1=<?php echo $id1 ?>"><?php echo $level1['name']?></a></h3><?php
         foreach($level1['category'] as $id2=>$level2){
-         ?><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>"><?php echo $level2['name'] ?></a><?php
+         ?><h4><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>"><?php echo $level2['name'] ?></a></h4><?php
        
          foreach($level2['subcategory'] as $id3=>$level3){
-            ?><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&level3=<?php echo $id3 ?>">--<?php echo $level3['name'] ?></a><?php
+            ?><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&level3=<?php echo $id3 ?>"><?php echo $level3['name'] ?></a><?php
          }   
        
         }
@@ -197,10 +397,17 @@ function showProducts(){
                 <h1><?php echo $row['name_product'] ?></h1>
                 <p><?php echo $row['desc_product'] ?></p>
                 <h3><?php echo $row['price_product']." zł" ?></h3>
-                <button>Dodaj do koszyka</button>
+                <form action="shopClass.php">
+                    <button oncClick="" >Dodaj do koszyka</button>
+                </form>                
             </div>
         </div>
         <?php
+    }
+
+    function addToTrolley($price) {
+        $_SESSION['trolley_price'] += $price;
+        $_SESSION['trolley_products'];
     }
 
     
@@ -260,6 +467,28 @@ function showProducts(){
               <p><?php echo $path?></p>
         </div>
         <?php
+    }
+
+    function showOrderDone() {
+
+        $sql = "
+            SELECT 
+                C.`id_category` as `cat_id`,
+                C.`name_Category` as `cat_name`,
+
+                MC.`id_main_category` as `main_id`,
+                MC.`name_main_category` as `main_name`,
+                
+                SC.`id_second_category` as `sec_id`,
+                SC.`name_second_category` as `sec_name`
+            
+            FROM `category` C
+            LEFT JOIN `main_category` MC ON MC.`id_category` = C.`id_category`
+            LEFT JOIN `second_category` SC ON SC.`id_main_category` = MC.`id_main_category`
+
+            WHERE 1=1
+         ";
+
     }
 }
 ?>

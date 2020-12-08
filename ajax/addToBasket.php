@@ -22,8 +22,8 @@
     //echo 'dodałem '.$this->id.' za '.$this->price.'('.time().')';
     $this->addToTrolley($this->id,$this->price);
 
-     echo $_SESSION['trolley_price']. ' zł'   ;
-    //$this->debug($_SESSION);
+     echo $_SESSION['trolley_price']. ' zł';
+     $this->debug($_SESSION);
  }
 
  }

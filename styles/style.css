@@ -864,8 +864,34 @@ section h1 {
 }
 
 section .section__container__ordered {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   max-width: 1140px;
   width: 100vw;
+}
+
+section .section__container__ordered button {
+  background: transparent;
+  color: #31312f;
+  border: 1px solid #31312f;
+  padding: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 900;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+section .section__container__ordered button:hover {
+  background: #CD8987;
+  border: 1px solid #CD8987;
+  color: #fff;
 }
 
 section .section__container__ordered .ordered__item {
@@ -880,12 +906,34 @@ section .section__container__ordered .ordered__item {
           justify-content: space-between;
   background-color: #fff;
   padding: 20px;
+  margin-bottom: 20px;
   -webkit-box-shadow: 0px 0px 5px 1px rgba(49, 49, 47, 0.15);
   box-shadow: 0px 0px 5px 1px rgba(49, 49, 47, 0.15);
 }
 
 section .section__container__ordered .ordered__item img {
   max-height: 200px;
+}
+
+section .section__container__ordered .ordered__item .item__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+section .section__container__ordered .ordered__item .item__content h2 {
+  margin-bottom: 10px;
+}
+
+section .section__container__ordered .ordered__item .item__content p {
+  margin-bottom: 10px;
 }
 
 section .section__container__ordered .ordered__item:hover {
@@ -1103,6 +1151,9 @@ section .section__container__products .products__recommended .recommended__item:
         -ms-flex-pack: center;
             justify-content: center;
   }
+  .container__left {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 576px) and (max-width: 767px) {
@@ -1157,6 +1208,9 @@ section .section__container__products .products__recommended .recommended__item:
         -ms-flex-align: center;
             align-items: center;
     text-align: center;
+  }
+  .container__left {
+    display: none;
   }
 }
 

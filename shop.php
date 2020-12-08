@@ -6,6 +6,7 @@
   
     $s = new shop();
     $s -> SQLConnect($sqlConfig);
+    
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -36,8 +37,7 @@
     </main>
     <?php
       $s->printFooter();
-    ?>  
-    <script src="./js/main.js"></script>
+    ?>
     <script src="./js/dropdown.js"></script>
     </body>    
 </html>

@@ -7,36 +7,10 @@ class main {
 	var $mysqli = false;
 	var $lastInsertID = 0;
     var $shopName = 'Sklep Zoologiczny';
-    
-
-    var $daysOfWeek = array(
-		1 => 'poniedziałek',
-		2 => 'wtorek',
-		3 => 'środa',
-		4 => 'czwartek',
-		5 => 'piątek',
-		6 => 'sobota',
-		0 => 'niedziela',
-	);
-	
-	var $monthNames = array(
-		1=>'styczeń',
-		2=>'luty',
-		3=>'marzec',
-		4=>'kwiecień',
-		5=>'maj',
-		6=>'czerwiec',
-		7=>'lipiec',
-		8=>'sierpień',
-		9=>'wrzesień',
-		10=>'październik',
-		11=>'listopad',
-		12=>'grudzień',
-	);
 	
 	
 	function __construct() {
-		//global $mainSettings;		
+			
 	}
 	
 	
@@ -75,6 +49,7 @@ class main {
 	
 	    
 	function debug($t,$c=""){
+		return;
 		echo "<pre style='border: 1px solid ".(strlen($c)? $c: 'gray')."'>";
 		print_r($t);
 		echo "</pre>";

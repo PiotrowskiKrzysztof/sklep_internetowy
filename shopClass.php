@@ -3,6 +3,10 @@
 class shop extends main{
 
     function printHtmlHeader(){
+    
+        $this->processPOST();
+    
+    
     ?>
     <head>
         <meta charset="UTF-8" />
@@ -12,8 +16,8 @@ class shop extends main{
         <meta name="description" content="Projekt z przedmiotu projektowania aplikacji internetowych" />
         <link rel="stylesheet" type="text/css" href="styles/style.css?v=<?php echo time();?>" />
         <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet" /> 	
-          <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>   
-          <script type="text/javascript" src="js/functions.js?v=<?php echo time();?>"></script>        
+          <script src="js/jquery-3.5.1.min.js"></script>   
+          <script src="js/functions.js?v=<?php echo time();?>"></script>        
     </head>
     <?php
 
@@ -288,7 +292,15 @@ function printMenuLeft(){
         
 }
 
-
+function blockEntrace() {
+    
+    if(!isset($_SESSION['user_logged'])) {
+        ob_start();
+        header("Location: shop.php");
+        exit();
+    }
+    
+}
 
 function showProducts(){
 
@@ -416,7 +428,95 @@ function showProducts(){
         ) ;
     }
 
+    function deleteFromTrolley($id, $price) {
+        $_SESSION['trolley_price'] -= $price;
+        // $_SESSION['trolley_products'][] = array(
+        //         'id'=>$id,
+        //         'price'=>$price,
+        // ) ;
+    }
+
+    function showMyTrolley() {
+        //$this->debug($_SESSION['trolley_products']);
+        
+
+        if (!empty($_SESSION['trolley_products'])) {
+            $items = array();
+            $trolley = $_SESSION['trolley_products'];
+            $id_product = 0;
+            $iter = 0;
+            foreach ($trolley as $id=>$product) {
+                $id_product = $product['id'];
+                $sql = "
+                SELECT 
+                    `id_product`, 
+                    `name_product`, 
+                    `img_product`, 
+                    `price_product`,
+                    `desc_product`
+                FROM `product`
+                WHERE `id_product` = $id_product;
+                ";
+                $res = $this->sql($sql);
+                $row = mysqli_fetch_assoc($res);
+
+                ?>
+                <div class="ordered__item">                             
+                    <img src=<?php echo $row['img_product'] ?> alt="item.jpg">
+                    <div class="item__content">
+                        <h2><?php echo $row['name_product'] ?></h2>
+                        <p><?php echo $row['price_product']." zł" ?></p>
+                        
+                        <form method="POST">
+                            <input type="hidden" name="id_del" value="<?php echo $id?>">
+                            <button type="submit" class="item__content--delete">Usuń przedmiot z koszyka</button>
+                    </form>   
+                        
+                    </div>
+                </div>
+                <?php
+                $iter++;
+            
+                $items[] = array(
+                    'id_product'=>$row['id_product'],
+                    'price_product'=>$row['price_product'],
+                );
+            
+            }
+            //$this->debug($items);
+            
+            $json = json_encode($items);
+            // $this->debug($json);
+
+            ?>
+            <form method="POST" action="order.php">
+                <input type="hidden" name="makeorder" value="1">
+                <button>Złóż zamówienie</button>
+            </form>    
+            <?php
+        }  else {
+            echo "Twój koszyk jest pusty!";
+        }
+    }    
     
+
+    function processPOST(){
+       
+        // $this->debug($_POST);
+        //usuwanie elementu z koszyka
+        if(isset($_POST['id_del']) && isset($_SESSION['trolley_products'][ $_POST['id_del']])){
+            $id_del = $_POST['id_del'];
+
+            $price_del = $_SESSION['trolley_products'][$id_del]['price'];
+            $_SESSION['trolley_price'] -= $price_del;
+            unset($_SESSION['trolley_products'][$id_del]);
+        }
+
+        
+
+
+    }
+
     function showPathProducts() {
 
         $level1 = (isset($_REQUEST['level1']) && preg_match('/^[0-9]+$/',$_REQUEST['level1'])) ? $_REQUEST['level1'] : 0;
@@ -475,26 +575,55 @@ function showProducts(){
         <?php
     }
 
-    function showOrderDone() {
+    function showOrderDone($user_id) {
 
         $sql = "
-            SELECT 
-                C.`id_category` as `cat_id`,
-                C.`name_Category` as `cat_name`,
+        SELECT 
+            `id_order_done`,
+            `id_user_order_done`,
+            `content_order_done`,
+            `data_order_done`
+        FROM `order_done`
+        WHERE `id_user_order_done` = $user_id;
+        ";
 
-                MC.`id_main_category` as `main_id`,
-                MC.`name_main_category` as `main_name`,
-                
-                SC.`id_second_category` as `sec_id`,
-                SC.`name_second_category` as `sec_name`
+        $res = $this->sql($sql);
+        while ($row = mysqli_fetch_assoc($res)){
+
+            // $this->debug($row);
             
-            FROM `category` C
-            LEFT JOIN `main_category` MC ON MC.`id_category` = C.`id_category`
-            LEFT JOIN `second_category` SC ON SC.`id_main_category` = MC.`id_main_category`
+            ?>
+            <p><?php echo $row['data_order_done']; ?></p>
+            <?php
+                
+                // $this->debug($row['content_order_done']);                
+                $items = json_decode($row['content_order_done'],true);
+                // $this->debug($items);
+                foreach($items as $item){
+                    $sql_sub = "
+                        SELECT 
+                            `id_product`, 
+                            `name_product`, 
+                            `img_product` 
+                        FROM `product`
+                        WHERE `id_product` = ".$item['id_product']."
+                    ";
 
-            WHERE 1=1
-         ";
-
-    }
+                    $res_sub = $this->sql($sql_sub);
+                    $row_sub = mysqli_fetch_assoc($res_sub);
+                    
+                ?>                
+                <div class="ordered__item">                    
+                    <img src=<?php echo $row_sub['img_product'] ?> alt="item.jpg">
+                    <div class="item__content">
+                        <h2><?php echo $row_sub['name_product'] ?></h2>
+                        <p><?php echo $item['price_product'] ?></p>
+                    </div>
+                </div>                
+                <?php
+                }          
+        }
+    } 
 }
 ?>
+

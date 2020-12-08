@@ -6,6 +6,7 @@
 
   $s = new shop();
   $s -> SQLConnect($sqlConfig);
+  $s->blockEntrace();
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -19,19 +20,15 @@
     <section>
       <div class="section__container__ordered">
         <h1>Moje zamówienia:</h1>
-        <div class="ordered__item">
-            <img src="img/img_item.jpg" alt="item.jpg">
-            <div class="item__content">
-                <h2>Nazwa produktu</h2>
-                <p>Cena produktu</p>
-            </div>
-        </div>
+        <?php
+          $s->showOrderDone($_SESSION['id']);
+        ?>
+        
       </div>      
     </section>
     <?php
       $s->printFooter();
-    ?>  
-    <script src="./js/main.js"></script>
+    ?>
     <script src="./js/dropdown.js"></script>
     </body>    
 </html>

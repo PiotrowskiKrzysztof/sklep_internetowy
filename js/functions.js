@@ -1,6 +1,4 @@
-function addToBasket(id,price){
-        
-	//$('#mainContent').addClass('--loading');
+function addToBasket(id,price){        
 	$.ajax({
 		url: './ajax/addToBasket.php',
 		data: 'id=' + id + '&price=' + price +  '',

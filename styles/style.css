@@ -79,6 +79,39 @@ header #header__container .account__menu {
           flex-direction: row;
 }
 
+header #header__container .account__menu .menu__search {
+  border: 1px solid #31312f;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-right: 20px;
+}
+
+header #header__container .account__menu #search__results {
+  width: 200px;
+  min-height: 30px;
+  border: 1px solid #31312f;
+  border-radius: 5px;
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  right: 35vw;
+  top: 8vh;
+}
+
+header #header__container .account__menu #search__results a {
+  display: block;
+  padding: 5px;
+  font-size: 15px;
+  border-bottom: 1px solid #31312f;
+  -webkit-transition-duration: 0.4s;
+          transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+header #header__container .account__menu #search__results a:hover {
+  font-weight: 700;
+}
+
 header #header__container .account__menu .btn_log {
   background: transparent;
   color: #31312f;
@@ -850,6 +883,11 @@ main .main__container .section__shop .shop__products .shop__item:hover {
           transform: scale(1.05);
   -webkit-transition-duration: 0.4s;
           transition-duration: 0.4s;
+}
+
+main .main__container .section__shop .shop__pagination {
+  width: 100%;
+  text-align: center;
 }
 
 section {

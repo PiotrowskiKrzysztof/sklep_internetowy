@@ -36,6 +36,34 @@ header {
             justify-content: flex-end;
             display: flex;
             flex-direction: row;
+            .menu__search {
+                border: 1px solid $dark-grey;
+                border-radius: 5px;
+                padding-left: 10px;
+                margin-right: 20px;
+            }
+            #search__results {
+                width: 200px;
+                min-height: 30px;
+                border: 1px solid $dark-grey;
+                border-radius: 5px;
+                display: none;
+                position: absolute;
+                background-color: $white;
+                right: 35vw;
+                top: 8vh;
+                a {
+                    display: block;
+                    padding: 5px;
+                    font-size: 15px;
+                    border-bottom: 1px solid $dark-grey;
+                    transition-duration: 0.4s;
+                    cursor: pointer;
+                }
+                a:hover {
+                    font-weight: 700;
+                }
+            }
             .btn_log {
                 background: transparent;
                 color: $dark-grey;
@@ -528,6 +556,10 @@ main {
                     transform: scale(1.05);
                     transition-duration: 0.4s;
                 }
+            }
+            .shop__pagination {
+                width: 100%;
+                text-align: center;
             }
         }
     }

@@ -28,7 +28,9 @@ class shop extends main{
         <header>
             <div id="header__container">
                 <a href="index.php"><img class="logo" src="img/logo.svg" alt="Logo" /></a>
-                <div class="account__menu">                     
+                <div class="account__menu">
+                    <input class="menu__search" type="search" name="search" id="search" placeholder="Wyszukaj przedmiot">
+                    <div id="search__results"></div>
                     <?php
                         if((isset($_SESSION['admin_logged']) && $_SESSION['admin_logged'] == true)) {              
                             echo '                                
@@ -54,8 +56,8 @@ class shop extends main{
                                 </div> 
                             </div>  ';
                         } else {
-                        echo '<a class="btn_log" href="register_page.php">Zarejestruj się</a>';
-                        echo '<a class="btn_log" href="signin_page.php">Zaloguj się</a>';
+                            echo '<a class="btn_log" href="register_page.php">Zarejestruj się</a>';
+                            echo '<a class="btn_log" href="signin_page.php">Zaloguj się</a>';
                         }                        
                     ?>
                     <nav class="site-nav">
@@ -325,6 +327,8 @@ function showProducts(){
     $level2 = (isset($_REQUEST['level2']) && preg_match('/^[0-9]+$/',$_REQUEST['level2'])) ? $_REQUEST['level2'] : 0;
     $level3 = (isset($_REQUEST['level3']) && preg_match('/^[0-9]+$/',$_REQUEST['level3'])) ? $_REQUEST['level3'] : 0;
 
+    // $page = isset($GET['page']) ? intval($_GET['page']) : 1;
+
 
     $sql = "
         SELECT 
@@ -373,8 +377,13 @@ function showProducts(){
         ?>         
     </div>
     <?php
+    // pagination($level1, $level2, $level3);
 
 }
+
+// function pagination($id_cat, $id_main_cat, $id_sec_cat) {
+
+// }
 
     function showOneTile($info){
         ?>
@@ -733,5 +742,7 @@ function showProducts(){
         </div>
         <?php
     }
+
+    
 }
 ?>

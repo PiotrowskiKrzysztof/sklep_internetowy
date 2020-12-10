@@ -8,3 +8,19 @@ function addToBasket(id,price){
 		}
 	});
 }
+
+
+$(document).ready(function(e) {
+	$("#search").keyup(function() {
+		$("#search__results").show();
+		var x = $(this).val();
+		$.ajax({
+			type: 'GET',
+			url: './ajax/searchItem.php',
+			data: 'q=' + x,
+			success: function(html) {
+				$("#search__results").html(html);
+			}
+		})
+	});
+})

@@ -30,7 +30,16 @@ class shop extends main{
                 <a href="index.php"><img class="logo" src="img/logo.svg" alt="Logo" /></a>
                 <div class="account__menu">                     
                     <?php
-                        if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
+                        if((isset($_SESSION['admin_logged']) && $_SESSION['admin_logged'] == true)) {              
+                            echo '                                
+                                <div class="dropdown">
+                                    <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
+                                    <div class="dropdown__menu">
+                                        <a href ="admin.php">Admin panel</a>
+                                        <a href ="logout.php">Wyloguj</a>
+                                    </div> 
+                                </div>  ';
+                        } else if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
                         echo '
                             <div class="menu__trolley">
                                 <a href="my_trolley.php"><img src="img/trolley.svg" alt="Trolley" /></a>
@@ -47,7 +56,7 @@ class shop extends main{
                         } else {
                         echo '<a class="btn_log" href="register_page.php">Zarejestruj się</a>';
                         echo '<a class="btn_log" href="signin_page.php">Zaloguj się</a>';
-                        }
+                        }                        
                     ?>
                     <nav class="site-nav">
                         <button class="site-nav-trigger">Menu</button>
@@ -302,6 +311,14 @@ function blockEntrace() {
     
 }
 
+function onlyAdmin() {
+    if(!isset($_SESSION['admin_logged'])) {
+        ob_start();
+        header("Location: shop.php");
+        exit();
+    }
+}
+
 function showProducts(){
 
     $level1 = (isset($_REQUEST['level1']) && preg_match('/^[0-9]+$/',$_REQUEST['level1'])) ? $_REQUEST['level1'] : 0;
@@ -428,13 +445,6 @@ function showProducts(){
         ) ;
     }
 
-    function deleteFromTrolley($id, $price) {
-        $_SESSION['trolley_price'] -= $price;
-        // $_SESSION['trolley_products'][] = array(
-        //         'id'=>$id,
-        //         'price'=>$price,
-        // ) ;
-    }
 
     function showMyTrolley() {
         //$this->debug($_SESSION['trolley_products']);
@@ -470,7 +480,7 @@ function showProducts(){
                         <form method="POST">
                             <input type="hidden" name="id_del" value="<?php echo $id?>">
                             <button type="submit" class="item__content--delete">Usuń przedmiot z koszyka</button>
-                    </form>   
+                        </form>   
                         
                     </div>
                 </div>
@@ -623,7 +633,105 @@ function showProducts(){
                 <?php
                 }          
         }
-    } 
+    }
+    
+    function editCategory() {
+
+        $sql_cat = "
+        SELECT 
+            `id_category`,
+            `name_Category`
+        FROM `category`
+        ";
+        $res_cat = $this->sql($sql_cat);
+        ?>
+        <div class="container__element">
+            <form method="POST" action="change_category.php">
+            <select name="selected_cat" size="5">    
+            <?php        
+            while ($row_cat = mysqli_fetch_assoc($res_cat)){
+            ?>
+                <option value=<?php echo $row_cat['id_category'] ?>><?php echo $row_cat['name_Category'] ?></option>
+            <?php } ?>
+            </select>
+            <input type="text" id="new_cat" name="new_cat">
+            <button type="submit">Potwierdź zmianę nazwy</button>
+            </form>
+        </div>
+        <?php
+        $sql_main_cat = "
+        SELECT 
+            `id_main_category`,
+            `name_main_category`
+        FROM `main_category`
+        ";
+        $res_main_cat = $this->sql($sql_main_cat);
+        ?>
+        <div class="container__element">
+            <form method="POST" action="change_category.php">
+            <select name="selected_main_cat" size="5">    
+            <?php        
+            while ($row_main_cat = mysqli_fetch_assoc($res_main_cat)){
+            ?>
+                <option value=<?php echo $row_main_cat['id_main_category'] ?>><?php echo $row_main_cat['name_main_category'] ?></option>
+            <?php } ?>
+            </select>
+            <input type="text" id="selected_cat" name="new_main_cat">
+            <button>Potwierdź zmianę nazwy</button>
+            </form>
+        </div>
+        <?php
+        $sql_sec_cat = "
+        SELECT 
+            `id_second_category`,
+            `name_second_category`
+        FROM `second_category`
+        ";
+        $res_sec_cat = $this->sql($sql_sec_cat);
+        ?>
+        <div class="container__element">
+            <form method="POST" action="change_category.php">
+            <select name="selected_sec_cat" size="5">    
+            <?php        
+            while ($row_sec_cat = mysqli_fetch_assoc($res_sec_cat)){
+            ?>
+                <option value=<?php echo $row_sec_cat['id_second_category'] ?>><?php echo $row_sec_cat['name_second_category'] ?></option>
+            <?php } ?>
+            </select>
+            <input type="text" id="selected_cat" name="new_sec_cat">
+            <button>Potwierdź zmianę nazwy</button>
+            </form>
+        </div>
+        <?php        
+    }
+
+    function editOrderStatus() {
+        $sql ="
+            SELECT 
+                `id_order_done`,
+                `order_status`
+            FROM `order_done`
+            ";
+    
+        $res = $this->sql($sql);
+        ?>
+        <div class="container__element">
+            <form method="POST" action="change_status.php">
+            <select name="selected_order" size="5">    
+            <?php                  
+            while ($row = mysqli_fetch_assoc($res)){
+                if($row['order_status'] != "Dostarczone") {
+            ?>
+                <option value=<?php echo $row['id_order_done'] ?>><?php echo $row['id_order_done']."| ".$row['order_status'] ?></option>
+            <?php }} ?>
+            </select>            
+                <label><input type="radio" name="status" value="Przekazane kurierowi" checked>Przekazane kurierowi</label>
+                <label><input type="radio" name="status" value="W drodze do klienta">W drodze do klienta</label>
+                <label><input type="radio" name="status" value="Dostarczone">Dostarczone</label>
+                <button type="submit">Potwierdź zmianę stanu zamówienia</button>
+            </form>
+        </div>
+        <?php
+    }
 }
 ?>
-

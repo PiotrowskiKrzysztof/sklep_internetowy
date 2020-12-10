@@ -49,7 +49,7 @@ class main {
 	
 	    
 	function debug($t,$c=""){
-		return;
+		// return;
 		echo "<pre style='border: 1px solid ".(strlen($c)? $c: 'gray')."'>";
 		print_r($t);
 		echo "</pre>";

@@ -644,6 +644,39 @@ section {
     }
 }
 
+main {
+    .aside__admin {
+        display: flex;
+        flex-direction: column;
+        max-width: 285px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .section__admin {
+        max-width: 855px;
+        width: 100%;
+        #section-container {
+           display: flex; 
+           flex-direction: row;
+           justify-content: space-between;
+        }               
+        .container__element {
+            display: flex;
+            flex-direction: column;
+            @include button();
+            input {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+
 
 // RESPONSYWNOŚĆ
 

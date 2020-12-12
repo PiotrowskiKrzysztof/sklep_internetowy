@@ -287,12 +287,12 @@ function printMenuLeft(){
     <?php
     foreach($menu as $id1=>$level1){
        
-        ?><h3><a href="shop.php?level1=<?php echo $id1 ?>"><?php echo $level1['name']?></a></h3><?php
+        ?><h3><a href="shop.php?level1=<?php echo $id1 ?>&page=1"><?php echo $level1['name']?></a></h3><?php
         foreach($level1['category'] as $id2=>$level2){
-         ?><h4><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>"><?php echo $level2['name'] ?></a></h4><?php
+         ?><h4><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&page=1"><?php echo $level2['name'] ?></a></h4><?php
        
          foreach($level2['subcategory'] as $id3=>$level3){
-            ?><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&level3=<?php echo $id3 ?>"><?php echo $level3['name'] ?></a><?php
+            ?><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&level3=<?php echo $id3 ?>&page=1"><?php echo $level3['name'] ?></a><?php
          }   
        
         }
@@ -327,10 +327,64 @@ function showProducts(){
     $level2 = (isset($_REQUEST['level2']) && preg_match('/^[0-9]+$/',$_REQUEST['level2'])) ? $_REQUEST['level2'] : 0;
     $level3 = (isset($_REQUEST['level3']) && preg_match('/^[0-9]+$/',$_REQUEST['level3'])) ? $_REQUEST['level3'] : 0;
 
-    // $page = isset($GET['page']) ? intval($_GET['page']) : 1;
+    $page = isSet($_GET['page']) ? intval($_GET['page'] - 1) : 1;
+    $limit = 9;
+    $from = $page * $limit;
+    $count = 0;
+    $count_l1 = 0;
+    $count_l2 = 0;
+    $count_l3 = 0;
 
+    if($level1 > 0){
+        $count_l2 = $this->sql('SELECT 
+                                    COUNT(P.`id_product`) as cnt,                                
+                                    MC.`id_main_category` as `level2`,
+                                    C.`id_category` as `level1`
+                                FROM `product` P
+                                JOIN `second_category` SC ON SC.id_second_category = P.`category_product`
+                                JOIN `main_category` MC ON MC.`id_main_category` = SC.`id_main_category`
+                                JOIN `category` C ON MC.`id_category` = C.`id_category`
+                                WHERE C.`id_category`='.$level1);
+        
+        $count_l2 = mysqli_fetch_assoc($count_l2);
+        $count_l2 = $count_l2['cnt'];
+    }
 
-    $sql = "
+    if($level2 > 0){
+        $count_l1 = 0;
+        $count_l2 = $this->sql('SELECT 
+                                    COUNT(P.`id_product`) as cnt,                                
+                                    MC.`id_main_category` as `level2`,
+                                    C.`id_category` as `level1`
+                                FROM `product` P
+                                JOIN `second_category` SC ON SC.id_second_category = P.`category_product`
+                                JOIN `main_category` MC ON MC.`id_main_category` = SC.`id_main_category`
+                                JOIN `category` C ON MC.`id_category` = C.`id_category`
+                                WHERE MC.`id_main_category`='.$level2);
+        
+        $count_l2 = mysqli_fetch_assoc($count_l2);
+        $count_l2 = $count_l2['cnt'];
+    }
+
+    if($level3 > 0){
+        $count_l1 = 0;
+        $count_l2 = 0;
+        $count_l3 = $this->sql('SELECT COUNT(id_product) as cnt FROM product WHERE category_product='.$level3);
+        $count_l3 = mysqli_fetch_assoc($count_l3);
+        $count_l3 = $count_l3['cnt'];
+    }
+
+    if($level1 != 0 || $level2 != 0 || $level3 != 0){
+        $count = $count_l1 + $count_l2 + $count_l3;
+    } else {
+        $count = $this->sql('SELECT COUNT(id_product) as cnt FROM product');
+        $count = mysqli_fetch_assoc($count);
+        $count = $count['cnt'];
+    }
+
+    $allPage = ceil($count / $limit);
+    
+    $sql = '
         SELECT 
             P.`id_product`, 
             P.`name_product`, 
@@ -347,10 +401,9 @@ function showProducts(){
         JOIN `second_category` SC ON SC.id_second_category = P.`category_product`
         JOIN `main_category` MC ON MC.`id_main_category` = SC.`id_main_category`
         JOIN `category` C ON MC.`id_category` = C.`id_category`
-        
-        WHERE
-            1=1   
-    ";
+        WHERE 1=1
+           
+    ';
 
     if($level1 > 0) {
         $sql .= " AND  C.`id_category` = ".$level1." ";
@@ -363,6 +416,14 @@ function showProducts(){
     if($level3 > 0) {
         $sql .= " AND  SC.`id_second_category` = ".$level3." ";
     }
+
+    // echo 'PAGE: '.$page.'<br>';
+    // echo 'COUNT: '.$count.'<br>';
+    // echo 'ALL PAGE: '.$allPage.'<br>';
+    // echo 'LIMIT: '.$limit.'<br>';
+    // echo 'FROM: '.$from.'<br>';
+
+    $sql .= 'LIMIT '.$from.','.$limit;
 
     // $this->debug($sql);
 
@@ -377,13 +438,35 @@ function showProducts(){
         ?>         
     </div>
     <?php
-    // pagination($level1, $level2, $level3);
+    $this->pagination($level1, $level2, $level3, $allPage, $page);
 
 }
 
-// function pagination($id_cat, $id_main_cat, $id_sec_cat) {
 
-// }
+function pagination($id_cat, $id_main_cat, $id_sec_cat, $allPage, $page) {
+    function sector($val, $min, $max) {
+        return ($val >= $min && $val <= $max);
+    }
+    
+    ?>
+    <div class="shop__pagination">        
+        <?php
+        if($page > 3) {        
+            ?> <a href="shop.php?level1=<?php echo $id_cat ?>&level2=<?php echo $id_main_cat ?>&level3=<?php echo $id_sec_cat ?>&page=1"><<</a> <?php
+        }        
+        for($i = 1; $i <= $allPage; $i++) {
+            $bold = ($i == ($page + 1)) ? 'style="font-weight:700 !important;' : '';
+            if(sector($i, ($page - 2), ($page + 4))) {
+                ?><a <?php echo $bold ?> href="shop.php?level1=<?php echo $id_cat ?>&level2=<?php echo $id_main_cat ?>&level3=<?php echo $id_sec_cat ?>&page=<?php echo $i ?>"><?php echo $i ?></a><?php
+            }
+        }
+        if($page < $allPage - 4) {        
+            ?> <a href="shop.php?level1=<?php echo $id_cat ?>&level2=<?php echo $id_main_cat ?>&level3=<?php echo $id_sec_cat ?>&page=<?php echo $allPage ?>">>></a> <?php
+        }
+        ?>
+    </div>
+    <?php
+}
 
     function showOneTile($info){
         ?>

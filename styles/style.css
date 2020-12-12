@@ -890,6 +890,15 @@ main .main__container .section__shop .shop__pagination {
   text-align: center;
 }
 
+main .main__container .section__shop .shop__pagination a {
+  text-decoration: none;
+  color: #31312f;
+  padding: 5px;
+  border: 1px solid #31312f;
+  border-radius: 5px;
+  margin: 2px;
+}
+
 section {
   display: -webkit-box;
   display: -ms-flexbox;

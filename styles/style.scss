@@ -560,6 +560,14 @@ main {
             .shop__pagination {
                 width: 100%;
                 text-align: center;
+                a {
+                    text-decoration: none;
+                    color: $dark-grey;
+                    padding: 5px;
+                    border: 1px solid $dark-grey;
+                    border-radius: 5px;
+                    margin: 2px;
+                }
             }
         }
     }

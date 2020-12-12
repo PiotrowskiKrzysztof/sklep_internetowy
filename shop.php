@@ -6,6 +6,8 @@
   
     $s = new shop();
     $s -> SQLConnect($sqlConfig);
+
+    isSet($_GET['page']) ? intval($_GET['page'] - 1) : 1;
     
 ?>
 <!DOCTYPE html>
@@ -31,14 +33,7 @@
           <?php    
             // $s->debug($_REQUEST);
             $s->showProducts(); 
-          ?>
-          <div class="shop__pagination">
-            <a href="$"> 1 |</a>
-            <a href="$"> 2 |</a>
-            <a href="$"> 3 |</a>
-            <a href="$"> 4 |</a>
-            <a href="$"> 5 </a>
-          </div>  
+          ?>          
         </section>
       </div>
     </main>

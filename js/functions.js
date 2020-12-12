@@ -10,9 +10,12 @@ function addToBasket(id,price){
 }
 
 
-$(document).ready(function(e) {
+$(document).ready(function(e) {	
 	$("#search").keyup(function() {
 		$("#search__results").show();
+		if($(this).val().length == 0) {
+			$("#search__results").hide();
+		}
 		var x = $(this).val();
 		$.ajax({
 			type: 'GET',

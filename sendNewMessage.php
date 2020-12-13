@@ -11,21 +11,11 @@ require_once('settings.php');
 
 
  if(isset($_POST['email_mes']) && isset($_POST['subject_mes']) && isset($_POST['body_mes'])) {
-    //  $email = $_POST['email_mes'];
-    //  $subject = $_POST['subject_mes'];
-    //  $body = $_POST['body_mes'];
-    //  $admin_email = "krzysiek.p97@gmail.com";    
 
-    // $header = "From:".$email." \nContent-Type:".
-    // ' text/plain;charset="UTF-8"'.
-    // "\nContent-Transfer-Encoding: 8bit";
-    // $to = $admin_email;
-    // $message = $body;
-
-    $to_email = $_POST['email_mes'];
+    $to_email = "krzysiek.p97@gmail.com";
     $subject = $_POST['subject_mes'];
     $body = $_POST['body_mes'];
-    $headers = "krzysiek.p97@gmail.com";
+    $headers = "From: krzysiek.p97@gmail.com";
 
 
     $sql = "
@@ -50,10 +40,8 @@ require_once('settings.php');
     
    
     
-    
- 
     if (mail($to_email, $subject, $body, $headers)) {
-        echo "Email successfully sent to $to_email...";
+        header("Location: messages.php");
     } else {
         echo "Email sending failed...";
     }

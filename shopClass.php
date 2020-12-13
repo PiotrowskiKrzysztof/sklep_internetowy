@@ -51,6 +51,7 @@ class shop extends main{
                             <div class="dropdown">
                                 <img class="dropdown__btn" src="img/avatar.svg" alt="Avatar" />
                                 <div class="dropdown__menu">
+                                    <a href ="messages.php">Wiadomości</a>
                                     <a href ="my_orders.php">Zamówienia</a>
                                     <a href ="logout.php">Wyloguj</a>
                                 </div> 
@@ -72,6 +73,7 @@ class shop extends main{
                             if((isset($_SESSION['user_logged']) && $_SESSION['user_logged'] == true)) {              
                                 echo '
                                 <li class="line"></li>
+                                <li><a href="messages.php">WIADOMOŚCI</a></li>
                                 <li><a href="my_orders.php">ZAMÓWIENIA</a></li>
                                 <li><a href="logout.php">WYLOGUJ</a></li>
                                 ';
@@ -88,6 +90,7 @@ class shop extends main{
                 </div>
             </div>
         </header>
+
         <nav>
             <div id="nav-container">
                 <ul id="menu">
@@ -726,6 +729,36 @@ function pagination($id_cat, $id_main_cat, $id_sec_cat, $allPage, $page) {
                 }          
         }
     }
+
+    function showMessages($user_id) {
+        $sql = "
+        SELECT 
+            `id_message`,
+            `id_user`,
+            `email_user`,
+            `subject_message`,
+            `text_message`,
+            `answer_message`
+        FROM `messages`
+        WHERE `id_user` = $user_id;
+        ";
+
+        $res = $this->sql($sql);
+        while ($row = mysqli_fetch_assoc($res)){
+            ?>
+            <div class="container__message">
+                <div class="message__user">   
+                    <h2><?php echo $row['subject_message'] ?></h2>
+                    <p><?php echo $row['text_message'] ?></p>
+                </div>
+                <div class="message__admin">
+                    <p>Odpowiedź:</p>
+                    <p><?php echo $row['answer_message'] ?></p>
+                </div>
+            </div>
+            <?php
+        }
+    }
     
     function editCategory() {
 
@@ -768,7 +801,7 @@ function pagination($id_cat, $id_main_cat, $id_sec_cat, $allPage, $page) {
                 <option value=<?php echo $row_main_cat['id_main_category'] ?>><?php echo $row_main_cat['name_main_category'] ?></option>
             <?php } ?>
             </select>
-            <input type="text" id="selected_cat" name="new_main_cat">
+            <input type="text" id="new_main_cat" name="new_main_cat">
             <button>Potwierdź zmianę nazwy</button>
             </form>
         </div>
@@ -790,7 +823,7 @@ function pagination($id_cat, $id_main_cat, $id_sec_cat, $allPage, $page) {
                 <option value=<?php echo $row_sec_cat['id_second_category'] ?>><?php echo $row_sec_cat['name_second_category'] ?></option>
             <?php } ?>
             </select>
-            <input type="text" id="selected_cat" name="new_sec_cat">
+            <input type="text" id="new_sec_cat" name="new_sec_cat">
             <button>Potwierdź zmianę nazwy</button>
             </form>
         </div>
@@ -821,6 +854,61 @@ function pagination($id_cat, $id_main_cat, $id_sec_cat, $allPage, $page) {
                 <label><input type="radio" name="status" value="W drodze do klienta">W drodze do klienta</label>
                 <label><input type="radio" name="status" value="Dostarczone">Dostarczone</label>
                 <button type="submit">Potwierdź zmianę stanu zamówienia</button>
+            </form>
+        </div>
+        <?php
+    }
+
+    function showMessagesAdmin() {
+        $sql = "
+        SELECT 
+            `id_message`,
+            `email_user`,
+            `subject_message`,
+            `answer_message`
+        FROM `messages`
+        ";
+
+        $res = $this->sql($sql);
+        while ($row = mysqli_fetch_assoc($res)){            
+            if(strlen($row['answer_message']) == 0) {
+                ?>
+                <div class="messages__admin" onclick="window.open('admin_message.php?message_id=<?php echo $row['id_message'] ?>','mywindow')">
+                    <p><?php echo $row['email_user'] ?></p>
+                    <h4><?php echo $row['subject_message'] ?></h4>
+                </div>
+                <?php
+            }
+        }
+    }
+
+    function answerMessage() {
+
+        $message_id= $_REQUEST['message_id'];
+
+        $sql = "
+        SELECT 
+            `id_message`,
+            `email_user`,
+            `subject_message`,
+            `text_message`,
+            `answer_message`
+        FROM `messages`
+        WHERE `id_message` = $message_id;
+        ";
+
+        $res = $this->sql($sql);
+        $row = mysqli_fetch_assoc($res);
+
+        ?>
+        <div class="message__admin">
+            <p><?php echo $row['email_user'] ?></p>
+            <h2><?php echo $row['subject_message'] ?></h2>
+            <p><?php echo $row['text_message'] ?></p>
+            <form method="POST" action="answer_message.php">
+                <input type="hidden" id="message_id" name="message_id" value="<?php echo $message_id ?>">
+                <textarea name="answer" id="answer" cols="30" rows="10"></textarea>
+                <button type="submit">Odpowiedz</button>
             </form>
         </div>
         <?php

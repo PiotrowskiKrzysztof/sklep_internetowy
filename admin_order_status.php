@@ -25,6 +25,7 @@
         <aside class="aside__admin">
             <a href="admin_order_status.php">Ustaw status zamówienia</a>
             <a href="admin_edit_category.php">Edytuj kategorie</a>
+            <a href="admin_messages.php">Wiadomości</a>
         </aside>
         <section class="section__admin">        
             <div id="section-container">

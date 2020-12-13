@@ -30,7 +30,7 @@
         <section class="section__admin">        
             <div id="section-container">
                 <?php
-                    $s->editCategory();
+                $s->answerMessage();
                 ?>
             </div>      
         </section>

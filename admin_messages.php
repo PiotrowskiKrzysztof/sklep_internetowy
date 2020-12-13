@@ -27,12 +27,10 @@
             <a href="admin_edit_category.php">Edytuj kategorie</a>
             <a href="admin_messages.php">Wiadomości</a>
         </aside>
-        <section class="section__admin">        
-            <div id="section-container">
-                <?php
-                    $s->editCategory();
-                ?>
-            </div>      
+        <section class="section__admin"> 
+            <?php
+                $s->showMessagesAdmin();
+            ?>
         </section>
     </main>  
     <script src="./js/dropdown.js"></script>

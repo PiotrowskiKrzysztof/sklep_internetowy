@@ -104,6 +104,7 @@ header {
                 .dropdown__menu {
                     position: absolute;
                     right: 0;
+                    top: -50px;
                     display: flex;
                     flex-direction: column;
                     text-align: center;
@@ -695,10 +696,26 @@ main {
     .section__admin {
         max-width: 855px;
         width: 100%;
+        display: flex;
+        flex-direction: column;
         #section-container {
            display: flex; 
            flex-direction: row;
            justify-content: space-between;
+           width: 100%;           
+           .message__admin {
+                display: flex;
+                flex-direction: column;
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    
+                }           
+            }
+            p {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
         }               
         .container__element {
             display: flex;
@@ -713,9 +730,72 @@ main {
                 flex-direction: column;
             }
         }
+        .messages__admin {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 20px;
+            cursor: pointer;
+            p {
+                width: 200px;
+            }            
+        }        
     }
 }
 
+.container__email {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    background-color: $white;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(49,49,47,0.15);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(49,49,47,0.15);
+    box-shadow: 0px 0px 5px 1px rgba(49,49,47,0.15);
+    input {
+        height: 35px;
+        border: 0;
+        border-bottom: 1px solid $dark-grey;
+        margin-bottom: 10px;
+    }
+    .email__btn {
+        margin-top: 10px;
+        background: transparent;
+        color: $dark-grey;
+        border: 1px solid $dark-grey;
+        padding: 10px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        font-weight: 900;
+        transition-duration: 0.4s;
+        cursor: pointer;
+    }
+    .email__btn:hover {
+        background: $pink;
+        border: 1px solid $pink;
+        color: $white
+    }
+}
+
+#section-container {
+    @include button();
+    a {
+        text-decoration: none;
+        color: $dark-grey;
+    }
+.container__message {
+    margin-top: 20px;
+    background-color: $white;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(49,49,47,0.15);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(49,49,47,0.15);
+    box-shadow: 0px 0px 5px 1px rgba(49,49,47,0.15);    
+    .message__user {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $dark-grey;
+    }
+}
+}
 
 
 // RESPONSYWNOŚĆ

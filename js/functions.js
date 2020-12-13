@@ -9,7 +9,6 @@ function addToBasket(id,price){
 	});
 }
 
-
 $(document).ready(function(e) {	
 	$("#search").keyup(function() {
 		$("#search__results").show();

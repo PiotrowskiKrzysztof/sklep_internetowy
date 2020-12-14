@@ -15,7 +15,9 @@ require_once('settings.php');
     $to_email = "krzysiek.p97@gmail.com";
     $subject = $_POST['subject_mes'];
     $body = $_POST['body_mes'];
-    $headers = "From: krzysiek.p97@gmail.com";
+    $headers = "From: ".$_POST['email_mes'];
+
+    echo $headers;
 
 
     $sql = "

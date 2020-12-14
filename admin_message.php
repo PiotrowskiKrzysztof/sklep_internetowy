@@ -27,8 +27,9 @@
             <a href="admin_edit_category.php">Edytuj kategorie</a>
             <a href="admin_messages.php">Wiadomości</a>
         </aside>
-        <section class="section__admin">        
-            <div id="section-container">
+        <section class="section__admin"> 
+            <a href="admin_messages.php"> <- Wróć</a>       
+            <div id="section-container">                
                 <?php
                 $s->answerMessage();
                 ?>

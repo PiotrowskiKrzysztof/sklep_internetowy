@@ -91,75 +91,82 @@ class shop extends main{
             </div>
         </header>
 
+        <?php
+        $sql = "
+            SELECT 
+                C.`id_category` as `cat_id`,
+                C.`name_Category` as `cat_name`,
+
+                MC.`id_main_category` as `main_id`,
+                MC.`name_main_category` as `main_name`,
+
+                SC.`id_second_category` as `sec_id`,
+                SC.`name_second_category` as `sec_name`
+            
+            FROM `category` C
+            LEFT JOIN `main_category` MC ON MC.`id_category` = C.`id_category`
+            LEFT JOIN `second_category` SC ON SC.`id_main_category` = MC.`id_main_category`
+
+            WHERE C.`active` = 1
+        ";
+
+        $res = $this->sql($sql);
+
+        $menu = array();
+        while ($row = mysqli_fetch_assoc($res)){
+            if(!isset($menu[$row['cat_id']])){
+                $menu[$row['cat_id']] = array(
+                    'id'=>$row['cat_id'],
+                    'name'=>$row['cat_name'],
+                    'category'=>array(),
+                );
+            }
+            if(!isset($menu[$row['cat_id']]['category'][$row['main_id']])){
+                $menu[$row['cat_id']]['category'][$row['main_id']] = array(
+                    'id'=>$row['main_id'],
+                    'name'=>$row['main_name'],
+                    'subcategory'=>array(),
+                );
+            }
+            if(!isset($menu[$row['cat_id']]['category'][$row['main_id']]['subcategory'][$row['sec_id']])){    
+                $menu[$row['cat_id']]['category'][$row['main_id']]['subcategory'][$row['sec_id']] = array(
+                    'id'=>$row['sec_id'],
+                    'name'=>$row['sec_name'],            
+                );
+            }
+        }
+        // $this->debug($menu);
+        ?>
+
         <nav>
             <div id="nav-container">
                 <ul id="menu">
                 <li class="menu-element"><a href="index.php">Strona główna</a></li>
-                <li class="menu-element">
-                    <a href="shop.php?level1=2">Koty</a>
-                    <div class="dropdown__menu">
-                    <div class="dropdown__element">
-                        <a class="element__title" href="shop.php?level1=2&level2=1"> Karma dla kota </a>
-                        <ul>
-                        <li><a href="shop.php?level1=2&level2=1&level3=1">Sucha karma dla kota</a></li>
-                        <li><a href="shop.php?level1=2&level2=1&level3=2">Mokra karma dla kota</a></li>
-                        <li><a href="shop.php?level1=2&level2=1&level3=3">Witaminy i sumplementy</a></li>
-                        <li><a href="shop.php?level1=2&level2=1&level3=4">Przysmaki</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown__element">
-                        <a class="element__title" href="shop.php?level1=2&level2=3"> Transport kota </a>
-                        <ul>
-                        <li><a href="shop.php?level1=2&level2=3&level3=5">Transportery dla kotów</a></li>
-                        <li><a href="shop.php?level1=2&level2=3&level3=6">Środki uspokajające do podróży</a></li>
-                        <li><a href="shop.php?level1=2&level2=3&level3=7">Szelki i smycze dla kotów</a></li>
-                        <li><a href="shop.php?level1=2&level2=3&level3=8">Akcesoria samochodowe</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown__element">
-                        <a class="element__title" href="shop.php?level1=2&level2=4"> Zabawa i sport </a>
-                        <ul>
-                        <li><a href="shop.php?level1=2&level2=4&level3=9">Kocimiętka</a></li>
-                        <li><a href="shop.php?level1=2&level2=4&level3=10">Grzechotki i maskotki</a></li>
-                        <li><a href="shop.php?level1=2&level2=4&level3=11">Wskaźniki laserowe</a></li>
-                        <li><a href="shop.php?level1=2&level2=4&level3=12">Tunele</a></li>
-                        </ul>
-                    </div>
-                    </div>
-                </li>
-                <li class="menu-element">
-                    <a href="shop.php?level1=1">Psy</a>
-                    <div class="dropdown__menu">
-                    <div class="dropdown__element">
-                        <a class="element__title" href="shop.php?level1=1&level2=5"> Karma dla psa </a>
-                        <ul>
-                        <li><a href="shop.php?level1=1&level2=5&level3=13">Sucha karma dla psa</a></li>
-                        <li><a href="shop.php?level1=1&level2=5&level3=14">Mokra karma dla psa</a></li>
-                        <li><a href="shop.php?level1=1&level2=5&level3=15">Witaminy i sumplementy</a></li>
-                        <li><a href="shop.php?level1=1&level2=5&level3=16">Przysmaki</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown__element">
-                        <a class="element__title" href="shop.php?level1=1&level2=6"> Transport psa </a>
-                        <ul>
-                        <li><a href="shop.php?level1=1&level2=6&level3=17">Transportery dla psów</a></li>
-                        <li><a href="shop.php?level1=1&level2=6&level3=18">Klatki i akcesoria</a></li>
-                        <li><a href="shop.php?level1=1&level2=6&level3=19">Miski i poidła podróżne</a></li>
-                        <li><a href="shop.php?level1=1&level2=6&level3=20">Akcesoria samochodowe</a></li>
-                        </ul>
-                    </div>
-                    <div class="dropdown__element">
-                        <a class="element__title" href="shop.php?level1=1&level2=7"> Spacer z psem </a>
-                        <ul>
-                        <li><a href="shop.php?level1=1&level2=7&level3=21">Obroże</a></li>
-                        <li><a href="shop.php?level1=1&level2=8&level3=22">Smycze</a></li>
-                        <li><a href="shop.php?level1=1&level2=9&level3=23">Szelki</a></li>
-                        <li><a href="shop.php?level1=1&level2=10&level3=24">Kagańce</a></li>
-                        </ul>
-                    </div>
-                    </div>
-                </li>                
-                <li class="menu-element"><a href="shop.php?level1=3">Promocje</a></li>
+                <?php
+                foreach($menu as $id1=>$level1){
+                    ?><li class="menu-element">
+                        <a href="shop.php?level1=<?php echo $id1 ?>&page=1"><?php echo $level1['name']?></a>
+                        <div class="dropdown__menu">
+                            <div class="dropdown__element">
+                                <?php
+                                foreach($level1['category'] as $id2=>$level2){
+                                    ?>
+                                    <a class="element__title" href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&page=1"><?php echo $level2['name'] ?></a>
+                                    <ul>
+                                    <?php
+                                        foreach($level2['subcategory'] as $id3=>$level3){
+                                            ?><li><a href="shop.php?level1=<?php echo $id1 ?>&level2=<?php echo $id2 ?>&level3=<?php echo $id3 ?>&page=1"><?php echo $level3['name'] ?></a></li><?php
+                                        } 
+                                    ?>
+                                    </ul>
+                                    <?php
+                                }
+                                ?>
+                            </div>                            
+                        </div>
+                    </li><?php
+                }
+                ?>                
                 </ul>
                 <div id="menu-bot">
                 <div class="menu-bot-element">
